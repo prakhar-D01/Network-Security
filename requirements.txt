@@ -9,5 +9,6 @@ scipy>=1.11
 dill
 pyyaml
 mlflow
+dagshub
 
 ##-e .
