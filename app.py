@@ -50,6 +50,9 @@ async def index():
 @app.get("/train")
 async def train_route():
     try:
+        if os.getenv("RENDER") is not None:
+            return Response("Training disabled on deployed server")
+        
         train_pipeline=TrainingPipeline()
         train_pipeline.run_pipeline()
         return Response("Training is successful")

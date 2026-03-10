@@ -19,7 +19,8 @@ from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier, Ran
 import mlflow
 
 import dagshub
-dagshub.init(repo_owner='prakhar-D01', repo_name='Network-Security', mlflow=True)
+if os.getenv("RENDER") is None:
+    dagshub.init(repo_owner='prakhar-D01', repo_name='Network-Security', mlflow=True)
 
 class ModelTrainer:
     def __init__(self, model_trainer_config:ModelTrainerConfig, 
@@ -106,6 +107,7 @@ class ModelTrainer:
         save_object(self.model_trainer_config.trained_model_file_path,obj=Network_Model)
             
         save_object("final_model/model.pkl",best_model)
+        save_object("final_model/preprocessor.pkl", preprocessor)
 
         ## Model Trainer Artifact
         model_trainer_artifact=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,
